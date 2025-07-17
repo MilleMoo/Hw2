@@ -5,12 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const password = document.getElementById("password");
     const subject = document.getElementById("subject");
     const errMsg = document.getElementById("error");
-    const confirm = document.getElementById("confirm"); // ตรวจสอบว่ามี checkbox นี้ใน HTML
+    const confirm = document.getElementById("confirm"); 
 
     form.addEventListener("submit", (event) => {
         event.preventDefault();
-
-        // Clear previous errors
         [username, email, password, subject, confirm].forEach(el => el?.classList.remove("is-invalid"));
         errMsg.innerHTML = "";
 
@@ -54,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
             errMsg.innerHTML = errList.join("<br>");
         } else {
             alert("ถอนรายวิชา Web Service สำเร็จ");
-            form.submit(); // ถ้าไม่ต้องการ reload page ให้ลบบรรทัดนี้
+            form.submit();
         }
     });
 
