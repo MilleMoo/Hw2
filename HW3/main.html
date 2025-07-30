@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #product-container{
+        }
+    </style>
+</head>
+<body>
+    <header class="container">
+        <h1 class="text-center mt-5">Store Simulator</h1>
+    </header>
+
+    <div class="container row row-cols-2 ms-5">
+        <div class="p-2 col">
+            <div class="row-col">
+                <div class="col mt-5 border p-3" id="product-container">
+                    <h2>
+                        <span>คลังสินค้า</span>
+                    </h2>
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3 text-sm">ID</th>
+                                <th class="px-4 py-3 text-sm">Name</th>
+                                <th class="px-4 py-3 text-sm">Price</th>
+                                <th class="px-4 py-3 text-sm">Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-table" class="bg-white divide-slate-200 divide-y ">
+                            <tr>
+                                <td class="px-4 py-3 text-sm">ID1</td>
+                                <td class="px-4 py-3 text-sm">name1</td>
+                                <td class="px-4 py-3 text-sm">23</td>
+                                <td class="px-4 py-3 text-sm">23</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-sm">ID2</td>
+                                <td class="px-4 py-3 text-sm">name1</td>
+                                <td class="px-4 py-3 text-sm">23</td>
+                                <td class="px-4 py-3 text-sm">23</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-sm">ID3</td>
+                                <td class="px-4 py-3 text-sm">name1</td>
+                                <td class="px-4 py-3 text-sm">23</td>
+                                <td class="px-4 py-3 text-sm">23</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-sm">ID4</td>
+                                <td class="px-4 py-3 text-sm">name1</td>
+                                <td class="px-4 py-3 text-sm">23</td>
+                                <td class="px-4 py-3 text-sm">23</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-sm">ID5</td>
+                                <td class="px-4 py-3 text-sm">name1</td>
+                                <td class="px-4 py-3 text-sm">23</td>
+                                <td class="px-4 py-3 text-sm">23</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col mt-4 border p-3">
+                    <h2>
+                        <span>ตะกร้าสินค้าของ K.สมศักดิ์</span>
+                    </h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3 text-sm">Product</th>
+                                <th class="px-4 py-3 text-sm">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userBuy">
+                            <tr>
+                                <td class="px-4 py-3 text-sm">Product1</td>
+                                <td class="px-4 py-3 text-sm">quantity1</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-sm">Product2</td>
+                                <td class="px-4 py-3 text-sm">quantity2</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-sm">Product3</td>
+                                <td class="px-4 py-3 text-sm">quantity3</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-sm">Product4</td>
+                                <td class="px-4 py-3 text-sm">quantity4</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-sm">Product5</td>
+                                <td class="px-4 py-3 text-sm">quantity5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <button class="btn btn-primary btn-lg" id="button1">ประมวลผลคำสั่งซื้อ</button>
+            </div>
+        </div>
+        <div class="p-5 border mt-5 col">
+            <div class="border p-3 text-center">
+                    <h4>ผลลัพธ์การประมวลผล</h4>
+                    <p>ผลลัพธ์จะแสดงที่นี่หลังจากกดปุ่ม "ประมวลผลคำสั่งซื้อ"</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const products = [
+  { id: 101, name: 'หูฟังบลูทูธ Sony', category: 'Electronics', price: 4590, stock: 15 },
+  { id: 102, name: 'คีย์บอร์ด Mechanical', category: 'Electronics', price: 2800, stock: 8 },
+  { id: 201, name: 'หนังสือ The Pragmatic Programmer', category: 'Books', price: 850, stock: 30 },
+  { id: 202, name: 'หนังสือ Clean Code', category: 'Books', price: 799, stock: 0 }, // สินค้าหมด
+  { id: 301, name: 'แก้วกาแฟ Starbucks', category: 'Lifestyle', price: 550, stock: 25 }
+];
+
+            const user = {
+  name: 'สมศักดิ์',
+  shoppingCart: [
+    { productId: 101, quantity: 1 }, 
+    { productId: 201, quantity: 2 }, 
+    { productId: 102, quantity: 1 }, 
+    { productId: 202, quantity: 1 }, 
+  ]
+};  
+            const productsTableBody = document.getElementById("products-table");
+            const UserProducts = document.getElementById("userBuy");
+            const buttonCal = document.getElementsById("button1");
+            const loadData =  () => {
+                productsTableBody.innerHTML = products.map(
+                    (item) =>
+                ` <tr>
+                    <th class="px-4 py-3 text-sm">${item.id}</th>
+                    <td class="px-4 py-3 text-sm">${item.name}</td>
+                    <td class="px-4 py-3 text-sm">${item.price.toLocaleString()}</td>
+                    <td class="px-4 py-3 text-sm ${item.stock === 0?"text-danger font-semibold": ""}">${item.stock}</td>
+                    </tr>`
+                ).join("");
+                UserProducts.innerHTML = user.shoppingCart.map((item) => 
+                            `<tr>
+                                <th class="px-4 py-3 text-sm">${item.productId}</th>
+                                <td class="px-4 py-3 text-sm">${item.quantity}</td>
+                            </tr>`
+                        ).join("");
+            }
+            loadData();
+        })
+    </script>
+</body>
+</html>
