@@ -218,10 +218,10 @@
     availableItems.forEach(item => {
         total += item.total;
         purchaseHTML += `
-            <li class="border rounded-2 d-flex justify-content-between m-1 p-2" id="listItem">
-                <div>
-                    <span class="fw-semibold">${item.name}</span><br>
-                    <p class="text-secondary">${item.price} X ${item.quantity}</p>
+            <li class="border rounded-2 d-flex justify-content-between mb-1 p-2" id="listItem">
+                <div class="pt-4">
+                    <span class="fw-semibold ">${item.name}</span><br>
+                    <p class="text-secondary">${item.price.toLocaleString()} X ${item.quantity}</p>
                 </div>
                 <span class="fw-semibold align-content-center">${item.total.toLocaleString()} บาท</span>
             </li>
@@ -233,14 +233,13 @@
         return product && product.price > 1000;
     });
 
-    const hasOutOfStock = user.shoppingCart.some(cartItem => {
+    const HasBookStock = user.shoppingCart.some(cartItem => {
         const product = products.find(p => p.id === cartItem.productId);
         return product && product.name.includes("หนังสือ");
     });
 
 
     purchaseHTML += `
-    </ul>
     <div class="row">
         <div class="col border m-3 p-2 rounded-2 align-content-center" id="boxTotal">
             <p class="text-center fw-semibold text-primary-emphasis">ยอดรวมสุทธิ</p>
@@ -257,8 +256,8 @@
             </p>
             <p>
                 มีสินค้าหมวดหนังสือหรือไม่:
-                <span class="${hasOutOfStock ? 'text-success fw-bold' : 'text-danger fw-bold'}">
-                    ${hasOutOfStock ? 'ใช่' : 'ไม่ใช่'}
+                <span class="${HasBookStock ? 'text-success fw-bold' : 'text-danger fw-bold'}">
+                    ${HasBookStock ? 'ใช่' : 'ไม่ใช่'}
                 </span>
             </p>
         </div>
@@ -270,7 +269,7 @@
     if (outOfStockItems.length > 0) {
         systemLogHTML += `
             <div class="text-blcack border-start p-2 border-warning border-3 text-warning-emphasis" id="Slog">
-                ⚠️สินค้า "${outOfStockItems.map(name => `- ${name}`).join("<br>")}" ไม่พร้อมจำหน่าย (อาจจะหมดสต็อก)
+                ⚠️สินค้า "${outOfStockItems.map(name => ` ${name} `).join("<br>")}" ไม่พร้อมจำหน่าย (อาจจะหมดสต็อก)
             </div>
         `;
     } else {
