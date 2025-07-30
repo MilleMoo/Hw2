@@ -6,29 +6,41 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        #product-container{
+        #nullcal{
+            border-style: dashed;
+            border-color: gainsboro;
+            border-radius: 10px;
+        }
+        #Slog{
+            background-color: rgb(255, 255, 231);
+        }
+        #listItem{
+            background-color: rgb(247, 247, 247);
+        }
+        #boxTotal{
+            background-color: rgb(191, 245, 242);
         }
     </style>
 </head>
 <body>
+    <div class="row me-5 ms-5 justify-content-center align-self-center">
     <header class="container">
         <h1 class="text-center mt-5">Store Simulator</h1>
     </header>
 
-    <div class="container row row-cols-2 ms-5">
-        <div class="p-2 col">
+        <div class=" col mt-3">
             <div class="row-col">
-                <div class="col mt-5 border p-3" id="product-container">
+                <div class="card col ps-3 pt-2" id="product-container">
                     <h2>
                         <span>คลังสินค้า</span>
                     </h2>
-                    <table class="table ">
+                    <table class="table">
                         <thead>
                             <tr>
-                                <th class="px-4 py-3 text-sm">ID</th>
-                                <th class="px-4 py-3 text-sm">Name</th>
-                                <th class="px-4 py-3 text-sm">Price</th>
-                                <th class="px-4 py-3 text-sm">Stock</th>
+                                <th class="px-2 py-3 text-sm">ID</th>
+                                <th class="px-2 py-3 text-sm">Name</th>
+                                <th class="px-2 py-3 text-sm">Price</th>
+                                <th class="px-2 py-3 text-sm">Stock</th>
                             </tr>
                         </thead>
                         <tbody id="products-table" class="bg-white divide-slate-200 divide-y ">
@@ -65,7 +77,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col mt-4 border p-3">
+                <div class="card col mt-4 p-3">
                     <h2>
                         <span>ตะกร้าสินค้าของ K.สมศักดิ์</span>
                     </h2>
@@ -105,8 +117,8 @@
                 <button class="btn btn-primary btn-lg" id="button1">ประมวลผลคำสั่งซื้อ</button>
             </div>
         </div>
-        <div class="p-5 border mt-5 col">
-            <div class="border p-3 text-center">
+        <div class="container card col ms-3 mt-3 me-5" id="cal">
+            <div class="text-center m-3 align-content-baseline justify-content-xxl-center p-5" id="nullcal">
                     <h4>ผลลัพธ์การประมวลผล</h4>
                     <p>ผลลัพธ์จะแสดงที่นี่หลังจากกดปุ่ม "ประมวลผลคำสั่งซื้อ"</p>
             </div>
@@ -115,46 +127,137 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const products = [
-  { id: 101, name: 'หูฟังบลูทูธ Sony', category: 'Electronics', price: 4590, stock: 15 },
-  { id: 102, name: 'คีย์บอร์ด Mechanical', category: 'Electronics', price: 2800, stock: 8 },
-  { id: 201, name: 'หนังสือ The Pragmatic Programmer', category: 'Books', price: 850, stock: 30 },
-  { id: 202, name: 'หนังสือ Clean Code', category: 'Books', price: 799, stock: 0 }, // สินค้าหมด
-  { id: 301, name: 'แก้วกาแฟ Starbucks', category: 'Lifestyle', price: 550, stock: 25 }
-];
+document.addEventListener("DOMContentLoaded", () => {
+    const products = [
+        { id: 101, name: 'หูฟังบลูทูธ Sony', category: 'Electronics', price: 4590, stock: 15 },
+        { id: 102, name: 'คีย์บอร์ด Mechanical', category: 'Electronics', price: 2800, stock: 8 },
+        { id: 201, name: 'หนังสือ The Pragmatic Programmer', category: 'Books', price: 850, stock: 30 },
+        { id: 202, name: 'หนังสือ Clean Code', category: 'Books', price: 799, stock: 0 },
+        { id: 301, name: 'แก้วกาแฟ Starbucks', category: 'Lifestyle', price: 550, stock: 25 }
+    ];
 
-            const user = {
-  name: 'สมศักดิ์',
-  shoppingCart: [
-    { productId: 101, quantity: 1 }, 
-    { productId: 201, quantity: 2 }, 
-    { productId: 102, quantity: 1 }, 
-    { productId: 202, quantity: 1 }, 
-  ]
-};  
-            const productsTableBody = document.getElementById("products-table");
-            const UserProducts = document.getElementById("userBuy");
-            const buttonCal = document.getElementsById("button1");
-            const loadData =  () => {
-                productsTableBody.innerHTML = products.map(
-                    (item) =>
-                ` <tr>
-                    <th class="px-4 py-3 text-sm">${item.id}</th>
-                    <td class="px-4 py-3 text-sm">${item.name}</td>
-                    <td class="px-4 py-3 text-sm">${item.price.toLocaleString()}</td>
-                    <td class="px-4 py-3 text-sm ${item.stock === 0?"text-danger font-semibold": ""}">${item.stock}</td>
-                    </tr>`
-                ).join("");
-                UserProducts.innerHTML = user.shoppingCart.map((item) => 
-                            `<tr>
-                                <th class="px-4 py-3 text-sm">${item.productId}</th>
-                                <td class="px-4 py-3 text-sm">${item.quantity}</td>
-                            </tr>`
-                        ).join("");
+    const user = {
+        name: 'สมศักดิ์',
+        shoppingCart: [
+            { productId: 101, quantity: 1 },
+            { productId: 201, quantity: 2 },
+            { productId: 102, quantity: 1 },
+            { productId: 202, quantity: 1 },
+        ]
+    };
+
+    const productsTableBody = document.getElementById("products-table");
+    const UserProducts = document.getElementById("userBuy");
+    const buttonCal = document.getElementById("button1");
+    const resultBox = document.getElementById("cal");
+
+    const loadData = () => {
+        productsTableBody.innerHTML = products.map(
+            (item) =>
+                `<tr>
+                    <th>${item.id}</th>
+                    <td>${item.name}</td>
+                    <td>${item.price.toLocaleString()}</td>
+                    <td class="${item.stock === 0 ? 'text-danger fw-bold' : ''}">${item.stock}</td>
+                </tr>`
+        ).join("");
+
+        UserProducts.innerHTML = user.shoppingCart.map((item) => {
+            return `<tr>
+                        <td>${item.productId}</td>
+                        <td>${item.quantity}</td>
+                    </tr>`;
+        }).join("");
+    };
+
+    buttonCal.addEventListener("click", () => {
+        let total = 0;
+    let outOfStockItems = [];
+
+    let systemLogHTML = `
+        <h5 class="mt-2">ใบสรุปคำสั่งซื้อของคุณ สมศักดิ์</h5>
+        <hr>
+        <h6>System Log:</h6>
+    `;
+
+    let purchaseHTML = `
+        <h6 class="mt-3">รายการสินค้าที่พร้อมจัดส่ง:</h6>
+        <ul class="mb-3">
+    `;
+
+    user.shoppingCart.forEach(cartItem => {
+        const product = products.find(p => p.id === cartItem.productId);
+        if (product) {
+            if (product.stock < cartItem.quantity) {
+                outOfStockItems.push(product.name);
+            } else {
+                const cost = product.price * cartItem.quantity;
+                total += cost;
+                purchaseHTML += `
+                    <li class="card-body border rounded-2 d-flex justify-content-between m-2" id="listItem">
+                        <div>
+                            <span class="fw-semibold">${product.name}</span><br>
+                            <p class="text-secondary">${product.price} X ${cartItem.quantity}</p>
+                        </div>
+                        <span class="fw-semibold">${cost.toLocaleString()} บาท</span>
+                    </li>
+                `;
             }
-            loadData();
-        })
-    </script>
+        }
+    });
+    const allItemsOver1000 = user.shoppingCart.every(cartItem => {
+        const product = products.find(p => p.id === cartItem.productId);
+        return product && product.price > 1000;
+    });
+
+    const hasOutOfStock = outOfStockItems.length > 0;
+
+
+    purchaseHTML += `
+    </ul>
+    <div class="row">
+        <div class="col border m-3 p-3 rounded-2" id="boxTotal">
+            <p class="text-center fw-semibold text-primary-emphasis">ยอดรวมสุทธิ</p>
+            <h4 class="text-center text-primary-emphasis"><strong>${total.toLocaleString()} บาท</strong></h4>
+        </div>
+        <div class="card-header col border m-3 p-3 text-center rounded-2">
+        <h6>Cart Insights</h6>
+        <div class="text-start mt-3">
+            <p>
+                สินค้าทุกชิ้นราคาตั้งแต่ 1,000 บาทขึ้นไป:
+                <span class="${allItemsOver1000 ? 'text-success fw-bold' : 'text-danger fw-bold'}">
+                    ${allItemsOver1000 ? 'ใช่' : 'ไม่ใช่'}
+                </span>
+            </p>
+            <p>
+                มีสินค้าหมดสต็อกหรือไม่:
+                <span class="${hasOutOfStock ? 'text-success fw-bold' : 'text-danger fw-bold'}">
+                    ${hasOutOfStock ? 'ใช่' : 'ไม่ใช่'}
+                </span>
+            </p>
+        </div>
+    </div>
+
+    </div>
+    `;
+
+    if (outOfStockItems.length > 0) {
+        systemLogHTML += `
+            <div class="text-blcack border-start p-2 border-warning border-3 text-warning-emphasis" id="Slog">
+                ⚠️สินค้า "${outOfStockItems.map(name => `- ${name}`).join("<br>")}" ไม่พร้อมจำหน่าย (อาจจะหมดสต็อก)
+            </div>
+        `;
+    } else {
+        systemLogHTML += `<p class="text-success">ทำรายการสำเร็จ ไม่มีสินค้าหมด</p>`;
+    }
+
+    const resultHTML = systemLogHTML + purchaseHTML;
+    resultBox.innerHTML = resultHTML;
+    });
+
+    loadData();
+});
+</script>
+
 </body>
 </html>
